@@ -1,0 +1,25 @@
+{
+  "name": "node-web-scrape",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scraper.js",
+  "scripts": {
+    "start": "node scraper.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cheerio": "latest",
+    "express": "latest",
+    "file-saver": "^1.3.3",
+    "json2csv": "^3.11.5",
+    "path": "^0.12.7",
+    "request": "latest",
+    "scrape-it": "latest",
+    "x-ray": "^2.3.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "rimraf": "^2.6.2"
+  }
+}
