@@ -94,9 +94,8 @@ promise.then((err) => {
         console.log(err);
     }
 });    
-        }).then((arr) => {
         }).catch((err)=>{
-            console.log('!!!');
+            console.log(err);
         })
         defferedPromise.resolve(); 
 
