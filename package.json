@@ -10,12 +10,9 @@
   "dependencies": {
     "cheerio": "latest",
     "express": "latest",
-    "file-saver": "^1.3.3",
     "json2csv": "^3.11.5",
     "path": "^0.12.7",
-    "request": "latest",
-    "scrape-it": "latest",
-    "x-ray": "^2.3.2"
+    "request": "latest"
   },
   "author": "",
   "license": "ISC",

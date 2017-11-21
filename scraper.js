@@ -1,13 +1,12 @@
 var fs = require('fs');
-var json2csv = require('json2csv');
+var json2csv = require('json2csv');//allowed
 var request = require('request');
-var cheerio = require('cheerio');
+var cheerio = require('cheerio');//allowed
 var path = require('path');
-var fields = ['Title', 'Price', 'ImageURL', 'URL'];
+var fields = ['Title', 'Price', 'Image URL', 'URL'];
 var dir = './data';
 var output = './data/';
 var error = './scrapper_error.log';
-var fileSaver = require('file-saver');
 var rimraf = require('rimraf');
 var defferedPromise = Promise.defer();
 var promise = defferedPromise.promise
@@ -21,7 +20,7 @@ promise.then((err) => {
             fs.mkdirSync(dir);
         });
         rimraf('./scrapper_error.log',()=>{
-            console.log('deleted log file');
+           
         }); 
     }
     }).then((err,obj) => {
@@ -29,7 +28,7 @@ promise.then((err) => {
        request('http://www.shirts4mike.com/shirts.php', (err, res, html)=>{
             if(err){
                 var today = new Date();
-                var errorjson = '[' + today + ']' + err;
+                var errorjson = '[' + today + ']' + "There was an error when scraping the site. " + err;
                 fs.writeFile('./scrapper_error.log', errorjson, (err)=>{
                 });
                 console.log("There's been a 404 error. Cannot connect to http://shirts4mike.com");
@@ -48,7 +47,7 @@ promise.then((err) => {
                             counter++;
                             var $ = cheerio.load(body);
                             var item = new Object();
-                            var fields = ['Title', 'Price', 'ImageURL', 'URL', 'Time'];
+                            var fields = ['Title', 'Price', 'Image URL', 'URL', 'Time'];
                             var today = new Date();
                             
                             $('.shirt-details h1').each((index, value) => {
@@ -58,7 +57,7 @@ promise.then((err) => {
                                 item.Price = value.children[0].data;
                             });
                             $('span img').each((index, value) => {
-                                item.ImageURL = 'http://www.shirts4mike.com/'+ value.attribs['src'];
+                                item["Image URL"] = 'http://www.shirts4mike.com/'+ value.attribs['src'];
                                 item.URL = ('http://www.shirts4mike.com/' + value.attribs['src']).slice(0, 27)+'shirt.php?id=' + (value.attribs['src']).slice(17,20);
                                 item.Time = today;   
                             });
@@ -81,9 +80,10 @@ promise.then((err) => {
                                 var csv = json2csv({ data: arr, fields: fields});
                                 fs.writeFile('./data/' + today +'.csv', csv, function(err) {
                                     if (csv.length <= 54){
-                                    var errorjson = "Invalid api request url";
-                                    fs.writeFile('./scrapper_error.log', errorjson, (err)=>{
-                                    });
+                                        var errorjson = "Invalid api request url";
+                                        console.log('Invalid api request url');
+                                        fs.writeFile('./scrapper_error.log', errorjson, (err)=>{
+                                        });
                             }
                         });         
                 }
@@ -95,7 +95,6 @@ promise.then((err) => {
     }
 });    
         }).then((arr) => {
-            console.log(arr);
         }).catch((err)=>{
             console.log('!!!');
         })
